@@ -1,0 +1,48 @@
+version: '2'
+services:
+  web:
+    build: ./
+    # image: richarvey/nginx-php-fpm:1.2.0
+    # restart: always
+    expose:
+     - "80" #required for nginx-proxy
+    links:
+      - mysql
+    environment:
+      - VIRTUAL_HOST=dev.* #use wildcard so different local computers will be different IP's.  
+      # - OCTOBER_PLUGINS=October.Drivers;RainLab.GoogleAnalytics;Offline.Speedy;Rainlab.User;clake.userextended;Rainlab.Forum;
+      - OCTOBER_DB_DRIVER=mysql
+      - OCTOBER_DB_HOST=mysql
+      - OCTOBER_DB_PASSWORD=password
+      - OCTOBER_DB_NAME=octobercms
+      - OCTOBER_DB_USER=octobercms
+      - OCTOBER_APP_KEY=Idgz1PE3zO9iNc0E3oeH3CHDPX9MzZe3
+      - ERRORS=1
+      - RUN_SCRIPTS=1
+      - ENABLE_XDEBUG=1
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - 'mysql'
+  mysql:
+    image: "mariadb"
+    environment:
+     - MYSQL_ROOT_PASSWORD=root
+     - MYSQL_DATABASE=octobercms
+     - MYSQL_USER=octobercms
+     - MYSQL_PASSWORD=password
+  adminer:
+    image: clue/adminer
+    expose: 
+      - "80"
+    links:
+      - mysql
+    environment:
+      - VIRTUAL_HOST=db.* 
+
+
+#required for nginx-proxy
+networks:
+  default:
+    external:
+      name: nginx-proxy
