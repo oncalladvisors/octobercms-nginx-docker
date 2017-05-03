@@ -20,7 +20,7 @@ This is built on top of https://github.com/ngineered/nginx-php-fpm/ so you can u
 * option xdebug - Enable with the env variable `ENABLE_XDEBUG=1`
 * a lot of environment variable options (stolen from `https://github.com/Dragontek/octobercms`).   See "October variable options" below.
 * composer and october:up is run on container startup (see 02-run-composer.sh).
-* symlink plugins and themes into october src.   This means you do your development in `conf/plugins` not `src/plugins`.
+* (optional) symlink plugins and themes into october src.   This means you do your development in `conf/plugins` not `src/plugins`.   You can do this by setting env variable `SYMLINK_PLUGINS=1` and `SYMLINK_THEMES=1`.   NOTE, enabling this will delete the respective plugin/themes folder in the src folder.
 
 ## Some things I addded on top of `richarvey/nginx-php-fpm`:
 
