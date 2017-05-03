@@ -1,0 +1,12 @@
+composer.phar
+.DS_Store
+sftp-config.json
+selenium.php
+.env.*.php
+.env.php
+.env
+**/vendor/*
+/.idea
+!/conf/themes/*/assets/vendor/**/*
+!/conf/themes/*/assets/*/vendor/**/*
+!.env.insecure.php
