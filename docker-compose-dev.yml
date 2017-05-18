@@ -9,7 +9,7 @@ services:
     links:
       - mysql
     environment:
-      - VIRTUAL_HOST=dev.* #use wildcard so different local computers will be different IP's.  
+      - VIRTUAL_HOST=oca.* #use wildcard so different local computers will be different IP's.
       # - OCTOBER_PLUGINS=October.Drivers;RainLab.GoogleAnalytics;Offline.Speedy;Rainlab.User;clake.userextended;Rainlab.Forum;
       - OCTOBER_DB_DRIVER=mysql
       - OCTOBER_DB_HOST=mysql
@@ -20,12 +20,18 @@ services:
       - ERRORS=1
       - RUN_SCRIPTS=1
       - ENABLE_XDEBUG=1
+      - XDEBUG_CONFIG=remote_host=192.168.111.27
+      - PHP_IDE_CONFIG=serverName=docker
+      - DO_NOT_COPY_OCTOBER_CONFIG=1
+      - SKIP_COMPOSER=1
     volumes:
       - ./:/var/www/html
     depends_on:
       - 'mysql'
   mysql:
     image: "mariadb"
+    ports:
+      - "3306:3306"
     environment:
      - MYSQL_ROOT_PASSWORD=root
      - MYSQL_DATABASE=octobercms
@@ -35,6 +41,8 @@ services:
     image: clue/adminer
     expose: 
       - "80"
+    ports:
+      - "8081:80"
     links:
       - mysql
     environment:
