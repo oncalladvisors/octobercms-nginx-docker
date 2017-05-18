@@ -2,9 +2,8 @@
 
 XdebugFile='/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini'
 
-# THE ERROR:
-#   /usr/local/bin/docker-php-ext-enable: line 83: nm: not found 
-#   is OK!
+# THIS ERROR is OK! You can ignore it:
+#   /usr/local/bin/docker-php-ext-enable: line 83: nm: not found
 
 # enable xdebug
 if [[ "$ENABLE_XDEBUG" == "1" ]] ; then
@@ -19,11 +18,12 @@ if [[ "$ENABLE_XDEBUG" == "1" ]] ; then
 			if grep -q xdebug.remote_enable "$XdebugFile"; then
 				echo "Xdebug already enabled... skipping"
 			else
-				echo "xdebug.coverage_enable=0"  >> $XdebugFile
+			    echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > $XdebugFile # Note, single arrow to overwrite file.
 				echo "xdebug.remote_enable=1 "  >> $XdebugFile
-				echo "xdebug.remote_connect_back=1"  >> $XdebugFile
 				echo "xdebug.remote_log=/tmp/xdebug.log"  >> $XdebugFile
-				echo "xdebug.remote_autostart=true "  >> $XdebugFile
+				echo "xdebug.remote_autostart=false "  >> $XdebugFile # I use the xdebug chrome extension instead of using autostart
+				# NOTE: xdebug.remote_host is not needed here if you set an environment variable in docker-compose liek so `- XDEBUG_CONFIG=remote_host=192.168.111.27`.
+				#       you also need to set an env var `- PHP_IDE_CONFIG=serverName=docker`
 			fi
 		fi
   fi

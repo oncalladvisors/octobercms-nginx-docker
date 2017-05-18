@@ -33,5 +33,9 @@ return [
         'model'  => getenv('OCTOBER_SERVICES_STRIPE_MODEL') ?: 'User',
         'secret' => getenv('OCTOBER_SERVICES_STRIPE_SECRET') ?: '',
     ],
+    'rollbar' => [
+        'access_token' => env('OCTOBER_SERVICES_ROLLBAR_TOKEN', ''),
+        'level' => env('OCTOBER_SERVICES_ROLLBAR_LEVEL', 'debug')
+    ],
 
 ];

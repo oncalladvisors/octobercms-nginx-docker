@@ -3,6 +3,14 @@
 #    because env vars aren't available yet.
 APPDIR="/var/www/html/src"
 
+#Should I run this script?
+if [[ -z "${SKIP_COMPOSER}" ]]; then
+  echo "Running composer install for main and plugins."
+else
+  echo "Skipping Composer"
+  exit 0;
+fi
+
 #run composer and log to syslog.
 cd /$APPDIR
 COMPOSER_HOME="/root" composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
