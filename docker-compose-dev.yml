@@ -8,8 +8,9 @@ services:
      - "80" #required for nginx-proxy
     links:
       - mysql
+      - redis
     environment:
-      - VIRTUAL_HOST=oca.* #use wildcard so different local computers will be different IP's.
+      - VIRTUAL_HOST=oca.* #https://github.com/jwilder/nginx-proxy, camma separate for multiples
       # - OCTOBER_PLUGINS=October.Drivers;RainLab.GoogleAnalytics;Offline.Speedy;Rainlab.User;clake.userextended;Rainlab.Forum;
       - OCTOBER_DB_DRIVER=mysql
       - OCTOBER_DB_HOST=mysql
@@ -22,7 +23,7 @@ services:
       - ENABLE_XDEBUG=1
       - XDEBUG_CONFIG=remote_host=192.168.111.27
       - PHP_IDE_CONFIG=serverName=docker
-      - DO_NOT_COPY_OCTOBER_CONFIG=1
+      #- DO_NOT_COPY_OCTOBER_CONFIG=1
       - SKIP_COMPOSER=1
     volumes:
       - ./:/var/www/html
@@ -46,7 +47,10 @@ services:
     links:
       - mysql
     environment:
-      - VIRTUAL_HOST=db.* 
+      - VIRTUAL_HOST=db.*
+  redis:
+    image: "redis"
+
 
 
 #required for nginx-proxy

@@ -15,19 +15,16 @@ Your done, its up and running.
 
 This is built on top of https://github.com/ngineered/nginx-php-fpm/ so you can use any of the options associated with that docker container.    
 
-## Features
+## Features & Some things I added on top of `richarvey/nginx-php-fpm`:
 
 * option xdebug - Enable with the env variable `ENABLE_XDEBUG=1`
+    * you also need to set env vars `- XDEBUG_CONFIG=remote_host=you.local.ip.here` and `- PHP_IDE_CONFIG=serverName=NameUsedInPhpStormServerConfig`
 * a lot of environment variable options (stolen from `https://github.com/Dragontek/octobercms`).   See "October variable options" below.
-* composer and october:up is run on container startup (see 02-run-composer.sh).
+* composer and october:up is run on container startup (see 02-run-composer.sh).  Skip by setting `SKIP_COMPOSER=1` env var.
 * (optional) symlink plugins and themes into october src.   This means you do your development in `conf/plugins` not `src/plugins`.   You can do this by setting env variable `SYMLINK_PLUGINS=1` and `SYMLINK_THEMES=1`.   NOTE, enabling this will delete the respective plugin/themes folder in the src folder.
-
-## Some things I addded on top of `richarvey/nginx-php-fpm`:
-
-* I added xdebug which you can enable with the variable `ENABLE_XDEBUG=1` (see the docker-compose-dev.yml file)
 * I chose to add octobercms as a git submodule, not use the git importer built into `richarvey/nginx-php-fpm`.    I did this because I don't want october re-cloned every time the docker restarts.
 * custom nginx files for octobercms.  In `richarvey/nginx-php-fpm` the nginx.conf file is not copied in (only the nginx-site.conf is copied) so I copy it in my startup scripts. 
-
+* octobercms config files are copied from `conf/octoberConf` to `src/config` when container boots.   Add `DO_NOT_COPY_OCTOBER_CONFIG=1` to prevent this.
 
 # October variable options
 ## Database Environment Variables
