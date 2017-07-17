@@ -50,10 +50,18 @@ services:
       - VIRTUAL_HOST=db.*
   redis:
     image: "redis"
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
 
-
-
-#required for nginx-proxy
+# from https://github.com/jwilder/nginx-proxy/issues/502
+# I also have to put this at the bottom of all other dev docker-compose files.
+# I ran this as well, needs to be run once per docker SERVER: docker network create nginx-proxy
+#     This is needed so nginx-proxy can be used across compose files.
 networks:
   default:
     external:

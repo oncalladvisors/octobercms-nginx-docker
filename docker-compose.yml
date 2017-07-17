@@ -1,0 +1,30 @@
+version: '2'
+services:
+  web:
+    build: ./
+    # image: richarvey/nginx-php-fpm:1.2.0
+    # restart: always
+    expose:
+     - "80" #required for nginx-proxy
+    links:
+      - mysql
+      - redis
+    volumes:
+      - ./pluginsThemes/themes/:/var/www/html/src/themes
+      - ./pluginsThemes/plugins/:/var/www/html/src/plugins
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+# from https://github.com/jwilder/nginx-proxy/issues/502
+# I also have to put this at the bottom of all other dev docker-compose files.
+# I ran this as well, needs to be run once per docker SERVER: docker network create nginx-proxy
+#     This is needed so nginx-proxy can be used across compose files.
+networks:
+  default:
+    external:
+      name: nginx-proxy

@@ -21,7 +21,6 @@ This is built on top of https://github.com/ngineered/nginx-php-fpm/ so you can u
     * you also need to set env vars `- XDEBUG_CONFIG=remote_host=you.local.ip.here` and `- PHP_IDE_CONFIG=serverName=NameUsedInPhpStormServerConfig`
 * a lot of environment variable options (stolen from `https://github.com/Dragontek/octobercms`).   See "October variable options" below.
 * composer and october:up is run on container startup (see 02-run-composer.sh).  Skip by setting `SKIP_COMPOSER=1` env var.
-* (optional) symlink plugins and themes into october src.   This means you do your development in `conf/plugins` not `src/plugins`.   You can do this by setting env variable `SYMLINK_PLUGINS=1` and `SYMLINK_THEMES=1`.   NOTE, enabling this will delete the respective plugin/themes folder in the src folder.
 * I chose to add octobercms as a git submodule, not use the git importer built into `richarvey/nginx-php-fpm`.    I did this because I don't want october re-cloned every time the docker restarts.
 * custom nginx files for octobercms.  In `richarvey/nginx-php-fpm` the nginx.conf file is not copied in (only the nginx-site.conf is copied) so I copy it in my startup scripts. 
 * octobercms config files are copied from `conf/octoberConf` to `src/config` when container boots.   Add `DO_NOT_COPY_OCTOBER_CONFIG=1` to prevent this.
