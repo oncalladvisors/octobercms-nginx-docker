@@ -26,7 +26,8 @@ services:
       #- DO_NOT_COPY_OCTOBER_CONFIG=1
       - SKIP_COMPOSER=1
     volumes:
-      - ./:/var/www/html
+      - ./pluginsThemes/themes/:/var/www/html/src/themes
+      - ./pluginsThemes/plugins/:/var/www/html/src/plugins
     depends_on:
       - 'mysql'
   mysql:
