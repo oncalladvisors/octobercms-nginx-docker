@@ -28,6 +28,7 @@ services:
     volumes:
       - ./pluginsThemes/themes/:/var/www/html/src/themes
       - ./pluginsThemes/plugins/:/var/www/html/src/plugins
+      - ./src/.env:/var/www/html/src/.env
     depends_on:
       - 'mysql'
   mysql:
