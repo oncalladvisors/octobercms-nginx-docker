@@ -1,7 +1,6 @@
 # How to use
 
-In this folder you should place your customized themes and plugins
-folder.
+In this folder you should place your customized themes and plugins folders.
 
 The docker-compose file will mount a volume for each folder in here into the folder in the october src folder.  This
 allows for quicker changes being reflected without have to restart the server.
