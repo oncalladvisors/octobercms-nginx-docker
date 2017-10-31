@@ -17,7 +17,7 @@ This is built on top of https://github.com/ngineered/nginx-php-fpm/ so you can u
 
 ## Features & Some things I added on top of `richarvey/nginx-php-fpm`:
 
-* option xdebug - Enable with the env variable `ENABLE_XDEBUG=1`
+* option xdebug - Enable with the env variable `ENABLE_XDEBUG=1` .   Here is a video on how to use it: https://goo.gl/tCkspc
     * you also need to set env vars `- XDEBUG_CONFIG=remote_host=you.local.ip.here` and `- PHP_IDE_CONFIG=serverName=NameUsedInPhpStormServerConfig`
 * a lot of environment variable options (stolen from `https://github.com/Dragontek/octobercms`).   See "October variable options" below.
 * composer and october:up is run on container startup (see 02-run-composer.sh).  Skip by setting `SKIP_COMPOSER=1` env var.
