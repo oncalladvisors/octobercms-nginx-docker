@@ -10,8 +10,7 @@ services:
       - mysql
       - redis
     environment:
-      - VIRTUAL_HOST=oca.* #https://github.com/jwilder/nginx-proxy, camma separate for multiples
-      # - OCTOBER_PLUGINS=October.Drivers;RainLab.GoogleAnalytics;Offline.Speedy;Rainlab.User;clake.userextended;Rainlab.Forum;
+      - VIRTUAL_HOST=subdomainHere.* #https://github.com/jwilder/nginx-proxy, camma separate for multiples
       - OCTOBER_DB_DRIVER=mysql
       - OCTOBER_DB_HOST=mysql
       - OCTOBER_DB_PASSWORD=password
@@ -21,7 +20,7 @@ services:
       - ERRORS=1
       - RUN_SCRIPTS=1
       - ENABLE_XDEBUG=1
-      - XDEBUG_CONFIG=remote_host=192.168.111.27
+      - XDEBUG_CONFIG=remote_host=192.168.111.27 #put your local computers physical IP here, not virtual IP (tested on windows 10)
       - PHP_IDE_CONFIG=serverName=docker
       #- DO_NOT_COPY_OCTOBER_CONFIG=1
       - SKIP_COMPOSER=1
