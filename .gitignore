@@ -10,3 +10,6 @@ selenium.php
 !/conf/themes/*/assets/vendor/**/*
 !/conf/themes/*/assets/*/vendor/**/*
 !.env.insecure.php
+*/.env.*.php
+*/.env.php
+*/.env

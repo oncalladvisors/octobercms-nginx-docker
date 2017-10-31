@@ -44,20 +44,13 @@ services:
     expose: 
       - "80"
     ports:
-      - "8081:80"
+      - "8081:80" # I map ports so that I don't have to worry about the reverse proxy 30s timeout.
     links:
       - mysql
     environment:
       - VIRTUAL_HOST=db.*
   redis:
     image: "redis"
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    container_name: nginx-proxy
-    ports:
-      - "80:80"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
 
 # from https://github.com/jwilder/nginx-proxy/issues/502
 # I also have to put this at the bottom of all other dev docker-compose files.
